@@ -23,11 +23,29 @@ namespace parsov
     }
     return newArray;
   }
+
+  void reverseSequence(char* seq, std::size_t size)
+  {
+    if (size == 0)
+    {
+      return;
+    }
+    std::size_t left = 0;
+    std::size_t right = size - 1;
+    while (left < right)
+    {
+      const char temp = seq[left];
+      seq[left] = seq[right];
+      seq[right] = temp;
+      left = left + 1;
+      right = right - 1;
+    }
+  }
 }
 
 int main()
 {
-  char* seq= nullptr;
+  char* seq = nullptr;
   std::size_t seqSize = 0;
 
   while (true)
@@ -67,7 +85,14 @@ int main()
     }
   }
 
+  parsov::reverseSequence(seq, seqSize);
+  
+  for (std::size_t i = 0; i < seqSize; ++i)
+  {
+    std::cout << seq[i];
+  }
   std::cout << "\n";
+
   delete[] seq;
   return 0;
 }
