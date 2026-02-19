@@ -2,7 +2,7 @@
 
 namespace parsov
 {
-  char* appendChars(const char* oldArray, std::size_t oldSize, std::size_t count, char symbol)
+  char* extend(const char* oldArray, std::size_t oldSize, std::size_t count, char symbol)
   {
     char* newArray = nullptr;
     try
@@ -72,10 +72,11 @@ int main()
 
     if (count > 0)
     {
-      char* newSeq = parsov::appendChars(seq, seqSize, count, symbol);
+      char* newSeq = parsov::extend(seq, seqSize, count, symbol);
       if (!newSeq)
       {
         std::cerr << "failed to alloc memory\n";
+        std::cout << "\n";
         delete[] seq;
         return 2;
       }
@@ -86,7 +87,7 @@ int main()
   }
 
   parsov::reverseSequence(seq, seqSize);
-
+  
   for (std::size_t i = 0; i < seqSize; ++i)
   {
     std::cout << seq[i];
