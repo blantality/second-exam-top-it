@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstddef>
+#include <new>
 
 namespace parsov
 {
@@ -41,6 +43,17 @@ namespace parsov
       right = right - 1;
     }
   }
+
+  void cleanup(char* seq, std::size_t size)
+  {
+    reverseSequence(seq, size);
+    for (std::size_t i = 0; i < size; ++i)
+    {
+      std::cout << seq[i];
+    }
+    std::cout << "\n";
+    delete[] seq;
+  }
 }
 
 int main()
@@ -58,7 +71,7 @@ int main()
         break;
       }
       std::cerr << "failed to read count\n";
-      delete[] seq;
+      parsov::cleanup(seq, seqSize);
       return 1;
     }
 
@@ -66,7 +79,7 @@ int main()
     if (!(std::cin >> symbol))
     {
       std::cerr << "failed to read symbol\n";
-      delete[] seq;
+      parsov::cleanup(seq, seqSize);
       return 1;
     }
 
@@ -76,8 +89,7 @@ int main()
       if (!newSeq)
       {
         std::cerr << "failed to alloc memory\n";
-        std::cout << "\n";
-        delete[] seq;
+        parsov::cleanup(seq, seqSize);
         return 2;
       }
       delete[] seq;
@@ -86,14 +98,6 @@ int main()
     }
   }
 
-  parsov::reverseSequence(seq, seqSize);
-
-  for (std::size_t i = 0; i < seqSize; ++i)
-  {
-    std::cout << seq[i];
-  }
-  std::cout << "\n";
-
-  delete[] seq;
+  parsov::cleanup(seq, seqSize);
   return 0;
 }
