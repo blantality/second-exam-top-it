@@ -106,6 +106,21 @@ int main(int argc, char** argv)
     pairsSize = pairsSize + 1;
   }
 
+  if (isReverse)
+  {
+    for (std::size_t i = pairsSize; i > 0; --i)
+    {
+      std::cout << pairs[i - 1].first << " " << pairs[i - 1].second << "\n";
+    }
+  }
+  else
+  {
+    for (std::size_t i = 0; i < pairsSize; ++i)
+    {
+      std::cout << pairs[i].first << " " << pairs[i].second << "\n";
+    }
+  }
+
   delete[] pairs;
   return 0;
 }
